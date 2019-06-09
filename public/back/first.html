@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./lib/bootstrap-validator/css/bootstrapValidator.min.css">
     <link rel="stylesheet" href="./lib/nprogress/nprogress.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/first.css">
 </head>
 <body>
     <!-- 首页侧边栏 -->
@@ -26,8 +26,8 @@
                 <li><a href="user.html"><i class="glyphicon glyphicon-user "></i><span>用户管理</span></a></li>
                 <li>
                     <a class="category" href="javascript:;"><i class="glyphicon glyphicon-list "></i><span>分类管理</span></a>
-                    <div class="child" style="display:none">
-                        <a href="first.html">一级分类</a>
+                    <div class="child">
+                        <a class="current" href="first.html">一级分类</a>
                         <a href="second.html">二级分类</a>
                     </div>
                 </li>
@@ -49,16 +49,51 @@
             <!-- 路径导航 -->
             <ol class="breadcrumb">
                     <li><a href="index.html">管理系统</a></li>
-                    <li>首页</li>
+                    <li>分类管理</li>
+                    <li>一级分类</li>
             </ol>
-            <!-- 图表 -->
             <div class="lt-content">
-                <div class="echarts1 pull-left"></div>
-                <div class="echarts2 pull-right"></div>
+                <button class="btn btn-default btn-add">添加分类</button>
+                <table class="table-bordered table-hover table text-center">
+                    <thead>
+                        <th class="text-center" width="20%">序号</th>
+                        <th class="text-center" width="80%">一级分类名</th>
+                    </thead>
+                    <tbody>
+                        <!-- <tr>
+                            <td>1</td>
+                            <td>复古馆</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <!-- 分页插件 -->
+                <div class="text-right">
+                    <ul id="paginator"></ul>
+                </div>
             </div>
-            
         </div>
     </div>
+    <!-- 添加分类模态框 -->
+    <div class="modal fade" id="cate-modal">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">添加分类</h4>
+                </div>
+                <form id="formCate">
+                    <div class="modal-body form-group">
+                        <input class="form-control" type="text" name="categoryName" placeholder="请输入一级分类">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">取消</button>
+                        <input class="btn btn-primary subCate" type="submit" value="添加">
+                    </div>
+                </form>
+                
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
     
     <!-- 模态框 -->
     <div class="modal fade" id="myModal">
@@ -78,14 +113,22 @@
               </div>
             </div>
     </div>
-
+    
+    <script type="html/text" id="tpl-first">
+        {{each rows v i}}
+            <tr>
+                <td>{{(page-1)*size+i+1}}</td>
+                <td>{{v.categoryName}}</td>
+            </tr>
+        {{/each}}
+    </script>
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
     <script src="./lib/nprogress/nprogress.js"></script>
-    <script src="./lib/echarts/echarts.min.js"></script>
+    <script src="./lib/artTemplate/template-web.js"></script>
+    <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/index.js"></script>
-    
+    <script src="js/first.js"></script>
 </body>
 </html>

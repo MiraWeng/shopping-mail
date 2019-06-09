@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./lib/bootstrap-validator/css/bootstrapValidator.min.css">
     <link rel="stylesheet" href="./lib/nprogress/nprogress.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/user.css">
 </head>
 <body>
     <!-- 首页侧边栏 -->
@@ -23,7 +23,7 @@
         </div>
         <div class="nav">
             <ul>
-                <li><a href="user.html"><i class="glyphicon glyphicon-user "></i><span>用户管理</span></a></li>
+                <li><a class="current" href="user.html"><i class="glyphicon glyphicon-user "></i><span>用户管理</span></a></li>
                 <li>
                     <a class="category" href="javascript:;"><i class="glyphicon glyphicon-list "></i><span>分类管理</span></a>
                     <div class="child" style="display:none">
@@ -49,18 +49,55 @@
             <!-- 路径导航 -->
             <ol class="breadcrumb">
                     <li><a href="index.html">管理系统</a></li>
-                    <li>首页</li>
+                    <li>用户管理</li>
             </ol>
-            <!-- 图表 -->
+
             <div class="lt-content">
-                <div class="echarts1 pull-left"></div>
-                <div class="echarts2 pull-right"></div>
+                <!-- 表格 -->
+                <table class="table-bordered table-hover table">
+                    <thead>
+                        <th width="10%">序号</th>
+                        <th width="20%">用户名</th>
+                        <th width="30%">手机号</th>
+                        <th width="20%">状态</th>
+                        <th width="20%">操作</th>
+                    </thead>
+                    <tbody>
+                        <!-- <tr>
+                            <td>1</td>
+                            <td>mira</td>
+                            <td>13532791142</td>
+                            <td>正常</td>
+                            <td><button class="btn btn-success">启用</button></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <!-- 分页 -->
+                <div class="text-right">
+                        <ul id="paginator"></ul>
+                </div>
             </div>
-            
         </div>
     </div>
-    
-    <!-- 模态框 -->
+    <!-- 启用禁止切换模态框 -->
+    <div class="modal fade" id="modal-user">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" ><span>&times;</span></button>
+                  <h4 class="modal-title">温馨提示</h4>
+                </div>
+                <div class="modal-body">
+                  <p><span class="glyphicon glyphicon-info-sign"></span>你确定要执行此操作吗？</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                  <button type="button" class="btn btn-primary confirm">确定</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+    <!-- 顶部工具栏模态框 -->
     <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-sm">
               <div class="modal-content">
@@ -78,14 +115,31 @@
               </div>
             </div>
     </div>
-
+    <script type="text/html" id="tpl-user">
+        {{each rows v i}}
+            <tr>
+                <td>{{(page-1)*size+i+1}}</td>
+                <td>{{v.username}}</td>
+                <td>{{v.mobile}}</td>
+                <td>{{v.isDelete===1?"正常":"禁用"}}</td>                
+                <td data-id="{{v.id}}">
+                    {{if v.isDelete===1}}
+                    <button class="btn btn-danger">禁用</button>
+                    {{else}}
+                    <button class="btn btn-success">启用</button>
+                    {{/if}}
+                </td>               
+            </tr>
+        {{/each}}
+    </script>
+    
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
     <script src="./lib/nprogress/nprogress.js"></script>
-    <script src="./lib/echarts/echarts.min.js"></script>
+    <script src="./lib/artTemplate/template-web.js"></script>
+    <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/index.js"></script>
-    
+    <script src="js/user.js"></script>
 </body>
 </html>

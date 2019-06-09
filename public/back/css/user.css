@@ -1,0 +1,13 @@
+.lt-content{}
+.lt-content .table{
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center; 
+}
+.lt-content .table td{
+    height: 30px;
+    line-height: 30px;
+}
+.lt-content .table th{
+    text-align: center; 
+}

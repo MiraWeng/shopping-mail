@@ -71,9 +71,14 @@ ul{
 .lt-aside .nav a i{
     margin-right: 5px;
 }
-.lt-aside .nav .child{
-    display: none;
+.lt-aside .nav .child a{
+    padding-left: 60px;
 }
+
+.lt-aside .nav a.current {
+    background-color: #1D1F21;
+    border-left: 3px solid #006699;
+  }
 
 /* 头部 */
 .lt-main{
