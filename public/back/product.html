@@ -35,7 +35,7 @@
             </ul>
         </div>
     </div>
-    <!-- 首页头部 -->
+    <!-- 首页右侧 -->
     <div class="lt-main">
         <!-- 头部导航菜单 -->
         <div class="lt-topbar">
@@ -44,17 +44,118 @@
             <a class="logout pull-right" href="#"><i class="glyphicon glyphicon-log-out"></i>
             </a>
         </div>
-        <!-- 剩余主题内容 -->
+        <!-- 剩余主体内容 -->
         <div class="container-fluid">
             <!-- 路径导航 -->
             <ol class="breadcrumb">
                     <li><a href="index.html">管理系统</a></li>
-                    <li>首页</li>
+                    <li>商品管理</li>
             </ol>
+            <!-- 表格部分 -->
+            <div class="lt-content">
+                <button class="btn btn-default btn-product">添加商品</button>
+                <table class="table table-bordered table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th width="10%">序号</th>
+                            <th width="25%">商品名称</th>
+                            <th width="25%">商品描述</th>
+                            <th width="10%">商品库存</th>
+                            <th width="10%">商品尺寸</th>
+                            <th width="10%">商品状态</th>
+                            <th width="10%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 模板引擎渲染分页 -->
+                        <!-- <tr>
+                            <td>1</td>
+                            <td>莹恋】MIZUNO美津浓V1GA159002乒乓球鞋男鞋女鞋室内综合训练鞋</td>
+                            <td>描述123123</td>
+                            <td>44</td>
+                            <td>35-56</td>
+                            <td>已上架</td>  
+                            <td><button class="btn btn-danger">下架</button></td> 
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- 分页 -->
+            <div class="text-right">
+                <ul id="paginator"></ul>
+            </div>
         </div>
     </div>
-    
-    <!-- 模态框 -->
+    <!-- 商品分类模态框 -->
+    <div class="modal fade" tabindex="-1" id="modal-product">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">添加商品</h4>
+                </div>
+                <form id="form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <!-- 二级分类下拉菜单 -->
+                            <div class="dropdown">
+                                <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="menu-text">请选择二级分类</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                    <!-- <li>1</li> -->
+                                    <!-- 模板引擎渲染二级分类下拉菜单 -->
+                                </ul>
+                            </div>
+                            <!-- 隐藏域用于提交brandId -->
+                            <input type="hidden" name="brandId">  
+                        </div>
+                            <!-- 商品名称 -->
+                        <div class="form-group">
+                            <input name="proName" class="form-control" type="text" placeholder="请输入商品名称">
+                        </div>
+                        <!-- 商品描述 -->
+                        <div class="form-group">
+                            <textarea name="proDesc" class="form-control"  cols="30" rows="3" placeholder="请输入商品描述"></textarea>
+                        </div>
+                        <!-- 商品库存 -->
+                        <div class="form-group">
+                            <input name="num" class="form-control" type="text" placeholder="请输入商品库存">
+                        </div>
+                        <!-- 商品尺码 -->
+                        <div class="form-group">
+                            <input name="size" class="form-control" type="text" placeholder="请输入商品尺码">
+                        </div>
+                        <!-- 商品原价 -->
+                        <div class="form-group">
+                            <input name="oldPrice" class="form-control" type="text" placeholder="请输入商品原价">
+                        </div>
+                        <!-- 商品现价 -->
+                        <div class="form-group">
+                            <input name="price" class="form-control" type="text" placeholder="请输入商品现价">
+                        </div>
+                        <!-- 图片 -->
+                        <div class="form-group">
+                            <label for="fileupload" class="btn btn-default">上传图片</label>
+                            <input id="fileupload" name="pic1" type="file" data-url=" /product/addProductPic" style="display: none" multiple>
+                        </div>
+                        <div class="form-group">
+                        <!-- 图片插入此处 -->
+                            <div id="imgBox">
+                                <input name="pic" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">添加</button>
+                    </div>
+                </form>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- 公共部分头部模态框 -->
     <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-sm">
               <div class="modal-content">
@@ -73,11 +174,38 @@
             </div>
     </div>
     
+    <!-- 模板引擎渲染分页 -->
+    <script type="text/html" id="tpl-product">
+        {{each rows v i}}
+            <tr>
+                <td>{{(page-1)*size + (i+1)}}</td>
+                <td>{{v.proName}}</td>
+                <td>{{v.proDesc}}</td>
+                <td>{{v.num}}</td>
+                <td>{{v.size}}</td>
+                <td>{{v.statu===1?"已上架":"已下架"}}</td>  
+                <td><button class="btn btn-danger">{{v.statu===1?"下架":"上架"}}</button></td> 
+            </tr>
+        {{/each}}
+    </script>
+    <!-- 模板引擎渲染二级分类 -->
+    <script type="text/html" id="tpl-modal">
+        {{each rows v i}}
+            <!-- <li><a href="#" data-id="{{v.id}}">{{v.brandName}}</a></li> -->
+            <li><a data-id="{{ v.id }}" href="#">{{ v.brandName }}</a></li>
+        {{/each}}
+    </script>
     <script src="./lib/jquery/jquery.min.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
     <script src="./lib/nprogress/nprogress.js"></script>
-    <script src="js/product.js"></script>
+    <script src="./lib/artTemplate/template-web.js"></script>
+    <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+    <!-- 引入 jquery-fileupload 包 -->
+    <script src="lib/jquery-fileupload/jquery.ui.widget.js"></script>
+    <script src="lib/jquery-fileupload/jquery.fileupload.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/product.js"></script>
+
 </body>
 </html>
