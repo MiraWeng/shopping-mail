@@ -1,0 +1,26 @@
+.history{
+    color:#666;
+    font-size: 12px;
+    padding: 10px;
+}
+.history .history-title{
+    height: 30px;
+    line-height: 30px;
+}
+.history .history-content ul{
+    border: 1px dashed red;
+}
+.history .history-content li {
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px dashed red;
+}
+.history .history-content li:last-child{
+    border-bottom: none;
+}
+.history .history-content li a{
+    padding: 0 10px;
+}
+.history .history-content li i{
+    height: 30px;
+}
