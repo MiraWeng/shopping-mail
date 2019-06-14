@@ -27,17 +27,20 @@ $(function(){
             var sortVal=$current.find("i").hasClass("fa-angle-down") ? 2 : 1;
             params[sortName]=sortVal;
         }
-        $.ajax({
-            type:"get",
-            url:"/product/queryProduct",
-            data:params,
-            dataType:"json",
-            success:function(info){
-                console.log(info);
-                var htmlStr=template("tpl",info);
-                $(".lt-product").html(htmlStr);
-            }
-        });
+        setInterval(function(){
+            $.ajax({
+                type:"get",
+                url:"/product/queryProduct",
+                data:params,
+                dataType:"json",
+                success:function(info){
+                    console.log(info);
+                    var htmlStr=template("tpl",info);
+                    $(".lt-product").html(htmlStr);
+                }
+            });
+        },500)
+        
     };
     // 点击搜索框搜索并且搜索内容写进搜索历史
     $(".search .search-btn").click(function(){
