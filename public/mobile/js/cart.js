@@ -24,7 +24,7 @@ $(function() {
           $('.lt_main .mui-table-view').html( htmlStr );
 
           // 关闭下拉刷新
-          mui(".mui-scroll-wrapper").pullRefresh().endPulldownToRefresh();
+          // mui(".mui-scroll-wrapper").pullRefresh().endPulldownToRefresh();
         }
       });
     }, 500);

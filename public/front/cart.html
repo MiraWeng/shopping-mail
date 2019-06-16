@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>乐淘商城</title>
+    <link rel="stylesheet" href="./lib/mui/css/mui.css">
+    <link rel="stylesheet" href="./lib/fa/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+    <div class="lt-container">
+        <!-- -------------------------头部--------------------------- -->
+        <div class="lt-header">
+            <a href="javascript:history.go(-1)" class="icon-left">
+                <span class="mui-icon mui-icon-back"></span>
+            </a>
+            <h3>购物车</h3>
+        </div>
+         <!-- ------------------------主体---------------------------- -->
+        <div class="lt-main">
+            <div class="mui-scroll-wrapper">
+                
+            <!-- 下拉刷新 -->
+                <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <!--数据列表-->
+                        <ul id="OA_task_2" class="mui-table-view">
+                                <!-- 模板引擎渲染部分 -->
+                                
+                        </ul>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+         <!-- ------------------------底部购物车---------------------------- -->
+         <div class="lt-footer">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <span class="fa fa-home"></span>
+                            <p>首页</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="category.html">
+                            <span class="fa fa-bars"></span>
+                            <p>分类页</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cart.html"  class="current">
+                            <span class="fa fa-shopping-cart"></span>
+                            <p>购物车</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="user.html">
+                            <span class="fa fa-user"></span>
+                            <p>用户中心</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+    </div>
+    <!-- --------------------模板引擎渲染购物车------------------ -->
+    <script type="text/html" id="tpl">
+    {{each info v i}}
+        
+    <li class="mui-table-view-cell mui-transitioning">
+        <!-- 滑动部分 -->
+        <div class="mui-slider-right mui-disabled">
+                <a class="mui-btn mui-btn-primary mui-icon mui-icon-compose btn-edit" style="transform: translate(0px, 0px);" 
+                data-id="{{v.id}}" 
+                data-size="{{v.size}}" 
+                data-productSize="{{v.productSize}}" 
+                data-num="{{v.num}}"
+                data-productNum="{{v.productNum}}"></a>
+                <a class="mui-btn mui-btn-danger mui-icon mui-icon-trash btn-del" style="transform: translate(-90px, 0px);" data-id="{{v.id}}"></a>
+        </div>
+        <div class="mui-slider-handle" style="transform: translate(0px,0px);">
+            <div class="mui-table-cell">
+                <div class="cart-img">
+                    <img src="{{v.pic[0].picAddr}}" alt="">
+                    <input type="checkbox">
+                </div>
+                <div class="cart-info">
+                    <p class="pro-name">{{v.proName}}</p>
+                    <p class="mui-clearfix">
+                        <span class="price mui-pull-left">¥{{v.price}}</span>
+                        <span class="oldPrice mui-pull-left">¥{{v.oldPrice}}</span>
+                        <span class="quantity mui-pull-right">{{v.num}}双</span>
+                    </p>
+                    <p>鞋码:{{v.size}}</p>
+                </div>
+            </div>
+        </div>
+    </li>
+    {{/each}}
+    </script>
+    <!-- --------------------模板引擎渲染编辑模态框------------------ -->
+    <script type="text/html" id="edit-tpl">
+        <div class="modal-size">
+            尺码:
+            <% 
+                var arr=productsize.split("-");
+                var start=arr[0];
+                var end=arr[1];
+                for(var i=start;i<=end;i++){  
+            %>
+                <span class="{{size==i?'current':''}}">{{i}}</span>
+            <% } %>
+        </div>
+        <div class="modal-num">
+            数量:
+            <div class="mui-numbox" data-numbox-min="1" data-numbox-max="{{productnum}}">
+                <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                <input id="test" class="mui-input-numbox" type="number" value="1">
+                <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+			</div>
+        </div>
+    </script>
+    <script src="./lib/zepto/zepto.min.js"></script>
+    <script src="./lib/mui/js/mui.js"></script>
+    <script src="./lib/artTemplate/template-web.js"></script>
+    <script src="./js/commom.js"></script>
+    <script src="./js/cart.js"></script>
+
+    <!-- <div class="mui-popup mui-popup-in" style="display: block;"><div class="mui-popup-inner"><div class="mui-popup-title">Hello MUI</div><div class="mui-popup-text">MUI是个好框架，确认？</div></div><div class="mui-popup-buttons"><span class="mui-popup-button">是</span><span class="mui-popup-button mui-popup-button-bold">否</span></div></div> -->
+</body>
+</html>

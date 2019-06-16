@@ -12,7 +12,6 @@ $(function(){
             },
             dataType:"json",
             success:function(info){
-                console.log(info);
                 var htmlStr=template("tpl-product",info);
                 $(".lt-content tbody").html(htmlStr);
                 // 分页功能实现
@@ -99,12 +98,11 @@ $(function(){
         //e：事件对象 //data：图片上传后的对象，通过data.result.picAddr可以获取上传后的图片地址 done:function (e, data) { console.log(data); 
         done:function (e, data) {
              picArr.unshift(data.result);
-             console.log(data.result); 
+            //  console.log(data.result); 
              $("#imgBox").prepend('<img width="100" src='+data.result.picAddr+'>');
              if(picArr.length>3){
                 picArr.pop();
                 $("#imgBox img").eq(3).remove();
-                
              }
              if(picArr.length===3){
                 $('#form').data("bootstrapValidator").updateStatus("pic", "VALID")
@@ -184,10 +182,6 @@ $(function(){
                     notEmpty:{
                         message:"请上传3张图片"
                     }
-                    // regexp:{
-                    //     regexp:,
-                    //     message:"请上传3张图片"
-                    // }
                 }
             },
         }
@@ -196,17 +190,20 @@ $(function(){
     $("#form").on("success.form.bv",function(e){
         e.preventDefault();
         var params=$("#form").serialize();
-        params=+"&picName1="+picArr[0].picName+"&picAddr1="+picArr[0].picAddr;
-        params=+"&picName2="+picArr[1].picName+"&picAddr2="+picArr[1].picAddr;
-        params=+"&picName3="+picArr[2].picName+"&picAddr3="+picArr[2].picAddr;
+        // console.log(params);
+        // console.log(picArr);
+        params+="&picName1="+picArr[0].picName+"&picAddr1="+picArr[0].picAddr;
+        params+="&picName2="+picArr[1].picName+"&picAddr2="+picArr[1].picAddr;
+        params+="&picName3="+picArr[2].picName+"&picAddr3="+picArr[2].picAddr;
+        console.log(params);
         $.ajax({
             type:"post",
             url:" /product/addProduct",
-            data:$("#form").serialize(),
+            data:params,
             dataType:"json",
             success:function(info){
+                console.log(info);
                 if(info.success){
-                    console.log(info);
                 //关闭模态框
                     $("#modal-product").modal('hide');
                 //渲染页面

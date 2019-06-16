@@ -1,0 +1,36 @@
+
+.cart-img{
+    width: 60px;
+    height: 90px;
+    float: left;
+}
+.cart-info{
+    overflow: hidden;
+    padding: 0 10px;
+}
+    
+.cart-info .pro-name{
+    color: #000;
+}
+.cart-info .price{
+    color: red;
+    margin-right: 4px;
+}
+.cart-info .oldPrice{
+    text-decoration: line-through;
+}
+/* 模态框 */
+.modal-size span{
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    margin: 3px 0;
+}
+.modal-size span.current{
+    background-color: orange;
+    color: #fff;
+}
